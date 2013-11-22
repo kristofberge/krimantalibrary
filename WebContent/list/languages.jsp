@@ -35,6 +35,8 @@ while(languages.next()){
 	i++;
 }
 
+languages.close();
+
 for(Language l : array){
 %>
 
@@ -44,7 +46,7 @@ for(Language l : array){
 <td>
 <form action="DeleteServlet" method="post">
 <input type="hidden" name="toDelete" value="<%=l.getLangId() %>" />
-<input type="submit"/>
+<input type="submit" value="Delete"/>
 </form>
 </td>
 </tr>

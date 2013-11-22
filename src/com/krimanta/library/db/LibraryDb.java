@@ -1,13 +1,11 @@
 package com.krimanta.library.db;
 
-import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.krimanta.library.dto.Language;
-import com.krimanta.library.dto.MyDto;
 import com.krimanta.library.meta.DataType;
 
 public class LibraryDb {
@@ -23,6 +21,8 @@ public class LibraryDb {
 		super();
 		this.conn = conn;
 	}
+	
+	
 	
 	public Language addLanguage(String langName){
 		Statement stat;
@@ -45,6 +45,35 @@ public class LibraryDb {
 			ResultSet res = stat.executeQuery(getLast);
 			res.first();
 			newLang = new Language (res.getString("MAX(" + ID_LANGUAGES + ")"), langName);
+			stat.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return newLang;
+	}
+	
+	public Language addWriter(String writName, String writDob, String writAlive){
+		Statement stat;
+		Language newLang = null;
+		
+		String sql = "INSERT INTO "
+				+ TABLE_LANGUAGES + " ("
+				+ COLUMNS_LANGUAGES + ") "
+				+ "VALUES ('"
+				+ writName + "')";
+		
+		try {
+			stat = conn.createStatement();
+			stat.executeUpdate(sql);
+			
+			String getLast = "SELECT MAX("
+					+ ID_LANGUAGES + ") "
+					+ "FROM "
+					+ TABLE_LANGUAGES;
+			ResultSet res = stat.executeQuery(getLast);
+			res.first();
+			//newLang = new Language (res.getString("MAX(" + ID_LANGUAGES + ")"), langName);
 			stat.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

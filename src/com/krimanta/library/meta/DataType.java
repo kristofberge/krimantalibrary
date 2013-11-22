@@ -1,23 +1,19 @@
-package com.krimanta.library.meta;
-
-import com.krimanta.library.dto.*; 
+package com.krimanta.library.meta; 
 
 public class DataType {
 	
-	public static final DataType LANGUAGES = new DataType("languages", "lang_name", "lang_id", Language.class);
+	public static final DataType LANGUAGES = new DataType("languages", "lang_name", "lang_id");
+	public static final DataType WRITERS = new DataType("writers", "writ_name, writ_dateofbirth, writ_dateofdeath, writ_alive", "writ_id");
 	
 	String tableName;
 	String columnsNoId;
 	String idColumn;
-	Class dtoClass;
 	
-	public DataType(String tableName, String columnsNoId, String idColumn,
-			Class dtoClass) {
+	public DataType(String tableName, String columnsNoId, String idColumn) {
 		super();
 		this.tableName = tableName;
 		this.columnsNoId = columnsNoId;
 		this.idColumn = idColumn;
-		this.dtoClass = dtoClass;
 	}
 	public String getTableName() {
 		return tableName;
@@ -30,8 +26,5 @@ public class DataType {
 	}
 	public String getAllColumns() {
 		return idColumn + ", " + columnsNoId;
-	}
-	public Class getDtoClass() {
-		return dtoClass;
 	}
 }
